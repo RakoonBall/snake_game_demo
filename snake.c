@@ -7,7 +7,7 @@
 #define N 20
 #define M 40
 
-int i,j, Field[N][M],x,y,Gy, Head, Tail, Frogs, a,b,var,dir;
+int i,j, Field[N][M],x,y,Gy, Head, Tail, Frogs,Game, a,b,var,dir;
 
 void snakeInitialization(){
    for(i=0;i<N;i++){
@@ -16,7 +16,7 @@ void snakeInitialization(){
     }
    }
 
-   x = N/2; y = M/2; Gy = y; Head = 5; Tail = 1;
+   x = N/2; y = M/2; Gy = y; Head = 5; Tail = 1, Game=0, Frogs =0; dir='d';
     for(i=0;i<Head; i++){
         Gy++;
         Field[x][Gy-Head] = i+1;
@@ -58,8 +58,29 @@ void draw(){
 void movement(){
     var = getch_noblock();
     var = tolower(var);
-
-    if(var == 'd')
+    if(((var == 'd' || var == 'a')|| (var == 'w' || var =='s')) && (abs(dir-var)> 5)){
+        dir = var;
+    }
+    if(dir == 'd'){
+        y++;
+        Head++;
+        Field[x][y] = Head;
+    }
+    if(dir == 'a'){
+        y--;
+        Head++;
+        Field[x][y] = Head;
+    }
+    if(dir == 'w'){
+        x--;
+        Head++;
+        Field[x][y] = Head;
+    }
+    if(dir == 's'){
+        x++;
+        Head++;
+        Field[x][y] = Head;
+    }
 }
 int main(){
     snakeInitialization();
